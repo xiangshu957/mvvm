@@ -14,3 +14,7 @@
 .cxx
 local.properties
 /.idea/
+/gradlew.bat
+/app/proguard-rules.pro
+/app/src/androidTest/
+/app/src/test/
