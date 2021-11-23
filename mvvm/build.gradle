@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
@@ -7,13 +7,13 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.zrx.mvvm"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     dataBinding {
@@ -36,8 +36,20 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'org.jetbrains:annotations:15.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //okhttp、retrofit、rxjava
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+
+    //解决RxJava内存泄漏，但在联网请求的时候使用了liveData，其实已经解决了。观察事件不能取消。
+    //同时在单独使用rxJava的时候还是要用。比如在启动页，还未去主页面，手动点击返回键的时候有效
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 }
