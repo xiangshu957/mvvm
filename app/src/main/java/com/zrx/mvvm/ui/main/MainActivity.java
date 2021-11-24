@@ -3,10 +3,11 @@ package com.zrx.mvvm.ui.main;
 import com.zrx.mvvm.R;
 import com.zrx.mvvm.databinding.ActivityMainBinding;
 import com.zrx.mvvmbase.base.BaseActivity;
-import com.zrx.mvvmbase.base.NormalViewModel;
+import com.zrx.mvvmbase.utils.GsonUtils;
+import com.zrx.mvvmbase.utils.LogUtils;
 
 
-public class MainActivity extends BaseActivity<NormalViewModel, ActivityMainBinding> {
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> {
 
 
     @Override
@@ -16,7 +17,10 @@ public class MainActivity extends BaseActivity<NormalViewModel, ActivityMainBind
 
     @Override
     protected void processLogic() {
-
+        mViewModel.getData().observe(this, listResource -> {
+            String ser = GsonUtils.ser(listResource);
+            LogUtils.e("zrx", ser);
+        });
     }
 
     @Override

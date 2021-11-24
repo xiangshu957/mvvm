@@ -48,14 +48,14 @@ public class RetrofitManager {
         initRetrofit();
     }
 
-    public static RetrofitManager getInstance(){
-        if (TextUtils.isEmpty(baseUrl)){
-            LogUtils.e(RetrofitManager.class.getSimpleName(),"baseUrl为空，无法初始化");
+    public static RetrofitManager getInstance() {
+        if (TextUtils.isEmpty(baseUrl)) {
+            LogUtils.e(RetrofitManager.class.getSimpleName(), "baseUrl为空，无法初始化");
             return null;
         }
-        if (retrofitManager == null){
-            synchronized (RetrofitManager.class){
-                if (retrofitManager == null){
+        if (retrofitManager == null) {
+            synchronized (RetrofitManager.class) {
+                if (retrofitManager == null) {
                     retrofitManager = new RetrofitManager();
                 }
             }
@@ -63,19 +63,19 @@ public class RetrofitManager {
         return retrofitManager;
     }
 
-    public static void getInstance(String baseUrl, Class<?> clazz){
-        if (retrofitManager == null){
-            synchronized (RetrofitManager.class){
-                if (retrofitManager == null){
+    public static void getInstance(String baseUrl, Class<?> clazz) {
+        if (retrofitManager == null) {
+            synchronized (RetrofitManager.class) {
+                if (retrofitManager == null) {
                     RetrofitManager.baseUrl = baseUrl;
                     RetrofitManager.retrofitApiServiceClass = clazz;
                     retrofitManager = new RetrofitManager();
-                }else {
+                } else {
                     retrofitManager = null;
                     getInstance(baseUrl, clazz);
                 }
             }
-        }else {
+        } else {
             retrofitManager = null;
             getInstance(baseUrl, clazz);
         }
@@ -83,6 +83,7 @@ public class RetrofitManager {
 
     private void initRetrofit() {
         retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
@@ -95,7 +96,7 @@ public class RetrofitManager {
         SSLContext sc = null;
         try {
             sc = SSLContext.getInstance("SSL");
-            sc.init(null,new TrustManager[]{new X509TrustManager() {
+            sc.init(null, new TrustManager[]{new X509TrustManager() {
                 @Override
                 public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
 
@@ -110,7 +111,7 @@ public class RetrofitManager {
                 public X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
-            }},new SecureRandom());
+            }}, new SecureRandom());
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
         }
@@ -122,10 +123,10 @@ public class RetrofitManager {
             Class workerClass = Class.forName(workerClassName);
             Field hostnameVerifier = workerClass.getDeclaredField("hostnameVerifier");
             hostnameVerifier.setAccessible(true);
-            hostnameVerifier.set(okHttpClient,hv1);
+            hostnameVerifier.set(okHttpClient, hv1);
             Field sslSocketFactory = workerClass.getDeclaredField("sslSocketFactory");
             sslSocketFactory.setAccessible(true);
-            sslSocketFactory.set(okHttpClient,sc.getSocketFactory());
+            sslSocketFactory.set(okHttpClient, sc.getSocketFactory());
         } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -136,8 +137,8 @@ public class RetrofitManager {
         okHttpClient = new OkHttpClient.Builder()
                 .cache(new Cache(new File(Environment.getExternalStorageDirectory() + "/okhttp_cache"), 50 * 1024 * 1024))
                 .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10,TimeUnit.SECONDS)
-                .writeTimeout(10,TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(new HttpLogInterceptor())
                 .addInterceptor(OfflineCacheInterceptor.getInstance())
                 .addNetworkInterceptor(NetCacheInterceptor.getInstance())
@@ -145,7 +146,7 @@ public class RetrofitManager {
     }
 
     public RetrofitApiService getRetrofitApiService() {
-        if (retrofitManager == null){
+        if (retrofitManager == null) {
             retrofitManager = getInstance();
         }
         assert retrofitManager != null;

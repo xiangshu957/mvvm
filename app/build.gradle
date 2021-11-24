@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.github.xiangshu957:mvvm:0.0.3'
+    implementation 'com.github.xiangshu957:mvvm:0.0.4'
 
     //okhttp、retrofit、rxjava
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
