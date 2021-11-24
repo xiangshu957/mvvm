@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.zrx.mvvm.bean.RepositoryImpl;
+import com.zrx.mvvm.bean.ResponseModelCustom;
 import com.zrx.mvvm.model.TestBean;
 import com.zrx.mvvmbase.base.BaseViewModel;
 import com.zrx.mvvmbase.base.bean.Resource;
@@ -23,7 +24,15 @@ public class MainViewModel extends BaseViewModel<RepositoryImpl> {
         super(application);
     }
 
+    @Override
+    protected RepositoryImpl createRepository(RepositoryImpl repository) {
+        if (repository == null) {
+            repository = new RepositoryImpl();
+        }
+        return repository;
+    }
+
     public MutableLiveData<Resource<List<TestBean>>> getData() {
-        return getRepository().getData();
+        return ((RepositoryImpl) getRepository()).getData();
     }
 }

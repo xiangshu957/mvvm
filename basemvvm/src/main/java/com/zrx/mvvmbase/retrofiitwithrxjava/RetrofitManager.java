@@ -40,7 +40,7 @@ public class RetrofitManager {
     private Retrofit retrofit;
     private static String baseUrl;
     private static Class<?> retrofitApiServiceClass;
-    private RetrofitApiService retrofitApiService;
+    private Object retrofitApiService;
 
     private RetrofitManager() {
         initOkHttpClient();
@@ -88,7 +88,7 @@ public class RetrofitManager {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
-        retrofitApiService = (RetrofitApiService) retrofit.create(retrofitApiServiceClass);
+        retrofitApiService = retrofit.create(retrofitApiServiceClass);
     }
 
     private void ignoreSSLCheck() {
@@ -145,7 +145,7 @@ public class RetrofitManager {
                 .build();
     }
 
-    public RetrofitApiService getRetrofitApiService() {
+    public Object getRetrofitApiService() {
         if (retrofitManager == null) {
             retrofitManager = getInstance();
         }

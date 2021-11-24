@@ -3,7 +3,7 @@ package com.zrx.mvvmbase.base.bean;
 /**
  * @Author: ZhangRuixiang
  * Date: 2021/11/21
- * DES:
+ * DES: 处理数据，根据不同的构造，执行不同的逻辑
  */
 public class Resource<T> {
 

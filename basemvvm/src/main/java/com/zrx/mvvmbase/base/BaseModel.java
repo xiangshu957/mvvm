@@ -32,7 +32,7 @@ public class BaseModel {
     public LifecycleTransformer objectLifecycleTransformer;
     public ArrayList<String> onNetTags;
 
-    public RetrofitApiService getApiService() {
+    public Object getApiService() {
         return RetrofitManager.getInstance().getRetrofitApiService();
     }
 

@@ -21,21 +21,22 @@ public abstract class BaseViewModel<T extends BaseModel> extends AndroidViewMode
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
-        createRepository();
+        repository = createRepository(repository);
         onNetTags = new ArrayList<>();
         repository.setOnNetTags(onNetTags);
     }
 
-    public void setObjectLifecycleTransformer(LifecycleTransformer objectLifecycleTransformer){
-        if (repository != null){
+    public void setObjectLifecycleTransformer(LifecycleTransformer objectLifecycleTransformer) {
+        if (repository != null) {
             repository.setObjectLifecycleTransformer(objectLifecycleTransformer);
         }
     }
 
-    public void createRepository(){
-        if (repository == null){
-            repository = (T) new BaseModel();
+    protected T createRepository(T repository) {
+        if (this.repository == null) {
+            this.repository = repository;
         }
+        return this.repository;
     }
 
     public T getRepository() {

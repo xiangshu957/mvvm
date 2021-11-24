@@ -6,6 +6,7 @@ package com.zrx.mvvm.model;
  * DES:
  */
 
+
 public class TestBean {
 
     private String id;
@@ -62,5 +63,6 @@ public class TestBean {
     public void setNum(Integer num) {
         this.num = num;
     }
+
 
 }
