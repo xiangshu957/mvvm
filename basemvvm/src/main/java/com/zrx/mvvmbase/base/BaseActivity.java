@@ -51,6 +51,7 @@ public abstract class BaseActivity<VM extends BaseViewModel, VDB extends ViewDat
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(getContentViewId());
         binding = DataBindingUtil.setContentView(this, getContentViewId());
         binding.setLifecycleOwner(this);
         createViewModel();
@@ -137,10 +138,10 @@ public abstract class BaseActivity<VM extends BaseViewModel, VDB extends ViewDat
         }
     }
 
-    public String getStringByUI(View view){
-        if (view instanceof EditText){
+    public String getStringByUI(View view) {
+        if (view instanceof EditText) {
             return ((EditText) view).getText().toString().trim();
-        }else if (view instanceof TextView){
+        } else if (view instanceof TextView) {
             return ((TextView) view).getText().toString().trim();
         }
         return "";

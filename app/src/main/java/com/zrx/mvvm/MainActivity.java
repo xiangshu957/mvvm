@@ -4,12 +4,44 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.zrx.mvvmbase.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void processLogic() {
+
+    }
+
+    @Override
+    protected void setListener() {
+
+    }
+
+    @Override
+    protected void showDialog(String msg) {
+
+    }
+
+    @Override
+    protected void hideDialog() {
+
+    }
+
+    @Override
+    protected void registerBroadCast() {
+
+    }
+
+    @Override
+    protected void unRegisterBroadCast() {
+
     }
 }
