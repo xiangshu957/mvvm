@@ -1,13 +1,12 @@
-package com.zrx.mvvm;
+package com.zrx.mvvm.ui.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
+import com.zrx.mvvm.R;
+import com.zrx.mvvm.databinding.ActivityMainBinding;
 import com.zrx.mvvmbase.base.BaseActivity;
+import com.zrx.mvvmbase.base.NormalViewModel;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<NormalViewModel, ActivityMainBinding> {
 
 
     @Override
