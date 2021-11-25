@@ -23,7 +23,9 @@ public class MyApplication extends Application {
         super.onCreate();
         context = this;
 
+        //context，sp文件的名字
         PreferenceUtil.getInstance().init(this, "test_sp");
+        //baseUrl,api接口
         RetrofitManager.getInstance(SysCommon.BASE_URL, RetrofitApi.class);
     }
 
